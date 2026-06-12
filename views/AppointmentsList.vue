@@ -1,4 +1,4 @@
-const API_BASE = "https://l6pzo5p4xh.execute-api.eu-north-1.amazonaws.com";
+
 <template>
   <div>
     <nav class="navbar navbar-light bg-white shadow-sm mb-4">
@@ -59,11 +59,11 @@ export default {
   },
   methods: {
     fetchAppointments() {
-      fetch(`${API_BASE}/appointments`)
+      fetch("https://e2m2b7y8c9.execute-api.us-east-1.amazonaws.com/prod/appointments")
         .then(res => res.json())
         .then(data => {
-          this.appointments = JSON.parse(data.body || "[]");
-          .catch(err => console.error("Error fetching appointments:", err));
+          const parsed = JSON.parse(data.body);
+          this.appointments = parsed;
         });
     },
     updateStatus(appointment, newStatus) {
@@ -74,7 +74,7 @@ export default {
       console.log("appointmentId:", cleanAppointment.appointmentId);
       console.log(" appointmentId (direct):", appointment.appointmentId);
 
-      const url = `${API_BASE}/appointments/${appointment.appointmentId}/status`;
+      const url = `https://e2m2b7y8c9.execute-api.us-east-1.amazonaws.com/prod/appointments/${appointment.appointmentId}`;
 
       const payload = { status: newStatus };
 
